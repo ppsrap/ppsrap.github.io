@@ -19,23 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
+    <meta name="description" content="title: Google Drive and Dropbox system design overviewdate: 2024-07-08 20:12:51tags:Google Drive and Dropbox system design overviewIn the modern information world, we have many photos, documents, vid">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Leo&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2024/07/08/Google%20Drive%20and%20Dropbox%20system%20design%20overview%20/index.html">
 <meta property="og:site_name" content="Leo&#39;s Blog">
+<meta property="og:description" content="title: Google Drive and Dropbox system design overviewdate: 2024-07-08 20:12:51tags:Google Drive and Dropbox system design overviewIn the modern information world, we have many photos, documents, vid">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-07-08T08:12:51.896Z">
+<meta property="article:modified_time" content="2024-07-08T09:46:20.876Z">
 <meta property="article:author" content="Leo">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2024/07/08/Google%20Drive%20and%20Dropbox%20system%20design%20overview%20/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2024/07/08/Google%20Drive%20and%20Dropbox%20system%20design%20overview%20/","path":"2024/07/08/Google Drive and Dropbox system design overview /","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Leo's Blog</title>
+<title> | Leo's Blog</title>
   
 
 
@@ -65,7 +69,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Leo's Blog</h1>
+      <p class="site-title">Leo's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -87,7 +91,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -100,6 +104,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-Google-Drive-and-Dropbox-system-design-overviewdate-2024-07-08-20-12-51tags"><span class="nav-number">1.</span> <span class="nav-text">title: Google Drive and Dropbox system design overviewdate: 2024-07-08 20:12:51tags:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Google-Drive-and-Dropbox-system-design-overview"><span class="nav-number"></span> <span class="nav-text">Google Drive and Dropbox system design overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Functional-Requirements"><span class="nav-number">1.</span> <span class="nav-text">Functional Requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Non-functional-requirements"><span class="nav-number">2.</span> <span class="nav-text">Non-functional requirements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Storage-Estimation"><span class="nav-number">3.</span> <span class="nav-text">Storage Estimation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Components"><span class="nav-number">4.</span> <span class="nav-text">System Components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Client-installed-on-your-desktop-or-mobile-application-to-access-storage-related-applications"><span class="nav-number">4.0.1.</span> <span class="nav-text">1. Client (installed on your desktop or mobile application to access storage-related applications)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Metadata-Database"><span class="nav-number">4.0.2.</span> <span class="nav-text">2. Metadata Database</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Synchronous-Service"><span class="nav-number">4.0.3.</span> <span class="nav-text">3. Synchronous Service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Message-Queuing-Service"><span class="nav-number">4.0.4.</span> <span class="nav-text">4. Message Queuing Service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Cloud-Block-Storage"><span class="nav-number">4.0.5.</span> <span class="nav-text">4. Cloud&#x2F;Block Storage</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-File-processing-workflow"><span class="nav-number">4.0.6.</span> <span class="nav-text">5. File processing workflow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Data-deduplication"><span class="nav-number">4.0.7.</span> <span class="nav-text">6. Data deduplication</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-cache"><span class="nav-number">4.0.8.</span> <span class="nav-text">7. cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Load-Balancer-LB"><span class="nav-number">4.0.9.</span> <span class="nav-text">8. Load Balancer (LB)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-API"><span class="nav-number">5.</span> <span class="nav-text">System API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#High-level-system-architecture"><span class="nav-number">6.</span> <span class="nav-text">High-level system architecture</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -129,16 +134,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/08/Google%20Drive%20and%20Dropbox%20system%20design%20overview%20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -152,13 +158,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Leo's Blog">
+      <meta itemprop="name" content=" | Leo's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/07/08/Google%20Drive%20and%20Dropbox%20system%20design%20overview%20/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -181,8 +187,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <hr>
+    <div class="post-body" itemprop="articleBody"><hr>
 <h2 id="title-Google-Drive-and-Dropbox-system-design-overviewdate-2024-07-08-20-12-51tags"><a href="#title-Google-Drive-and-Dropbox-system-design-overviewdate-2024-07-08-20-12-51tags" class="headerlink" title="title: Google Drive and Dropbox system design overviewdate: 2024-07-08 20:12:51tags:"></a>title: Google Drive and Dropbox system design overview<br>date: 2024-07-08 20:12:51<br>tags:</h2><h1 id="Google-Drive-and-Dropbox-system-design-overview"><a href="#Google-Drive-and-Dropbox-system-design-overview" class="headerlink" title="Google Drive and Dropbox system design overview"></a>Google Drive and Dropbox system design overview</h1><p>In the modern information world, we have many photos, documents, videos, etc. that need to be stored. I believe almost everyone has tried to use Google Drive or Dropbox.</p>
 <hr>
 <h2 id="Functional-Requirements"><a href="#Functional-Requirements" class="headerlink" title="Functional Requirements"></a>Functional Requirements</h2><p>Users can upload and download files from any device.<br>Users can update files by replacing the same file name.<br>Users can share files and folders with others via email links.<br>Users can delete files and folders at any time from any device.<br>Deleted files and folders are stored in the Recycle Bin for 15 days.<br>The system should support offline editing. Users can add&#x2F;modify files and folder names while offline, and the changes will be synchronized with the remote server once the network is restored.<br>Users can perform file version management to restore previous versions of files. (The system can support multiple versions of the same file that have been changed multiple times, and the bandwidth and required space will increase significantly)<br>The system can support synchronization of files and folders across devices.<br>The system allows each user to upload files up to 10 GB for free.<br>The system will provide different market plans for different storage sizes.</p>
@@ -207,7 +212,6 @@
 <hr>
 <h2 id="High-level-system-architecture"><a href="#High-level-system-architecture" class="headerlink" title="High-level system architecture"></a>High-level system architecture</h2><p>![这是图片](&#x2F;Users&#x2F;tanjunjie&#x2F;Desktop&#x2F;cv&#x2F;web3 DKWH&#x2F;High-level system architecture.png “Magic Gardens”)</p>
 
-      
     </div>
 
     
@@ -215,271 +219,22 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/22/Research%E2%80%9D/" rel="prev" title="You and Your Research">
+                  <i class="fa fa-angle-left"></i> You and Your Research
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/22/Research%E2%80%9D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leo's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Leo's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/22/Research%E2%80%9D/" class="post-title-link" itemprop="url">You and Your Research</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-06-22 13:41:37 / Modified: 14:26:47" itemprop="dateCreated datePublished" datetime="2024-06-22T13:41:37+12:00">2024-06-22</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="You-and-Your-Research-–-Richard-Hamming"><a href="#You-and-Your-Research-–-Richard-Hamming" class="headerlink" title="You and Your Research – Richard Hamming"></a>You and Your Research – Richard Hamming</h1><blockquote>
-<p>Mathematician Richard Hamming used to ask scientists in other fields “What are the most important problems in your field?”  getting asked this question is really useful for focusing people’s attention on what matters  by asking “Why aren’t you working on them?”.</p>
-</blockquote>
-<blockquote>
-<p>CFAR developed the technique of “Hamming Questions” as different prompts to get your brain to (actually) think about the biggest problems, bottlenecks, and unspoken desires in your life.</p>
-</blockquote>
-<p>On this blog I will briefly quote some of Hamming’s questions, thus leading to an explanation of the importance of research into the focus area.</p>
-<h2 id="Hamming-Questions"><a href="#Hamming-Questions" class="headerlink" title="Hamming Questions"></a>Hamming Questions</h2><p>“What are the important problems of your field?”</p>
-<p>“What important problems are you working on?”</p>
-<p>“If what you are doing is not important, and if you don’t think it is going to lead to something important, why are you still working on it?”</p>
-<p>If you do not work on an important problem, it’s unlikely you’ll do important work. It’s perfectly obvious. Great scientists have thought through, in a careful way, a number of important problems in their field, and they keep an eye on wondering how to attack them.</p>
-<h2 id="Luck-favours-the-prepared-mind"><a href="#Luck-favours-the-prepared-mind" class="headerlink" title="Luck favours the prepared mind"></a>Luck favours the prepared mind</h2><blockquote>
-<p>Pasteur said, “Luck favours the prepared mind.”</p>
-</blockquote>
-<p>Newton said, “If other people thought as hard as I do, then they would get similar results.”</p>
-<p>What many people, including great scientists, have, is that they usually have independent ideas at a young age and have the courage to pursue them. Einstein saw a paradox around the age of 12 or 14 that everything was wrong, that there was something special about the speed of light. Was it luck that he eventually created special relativity? Early on, he laid some groundwork by thinking about fragments. It was a necessary but not sufficient condition. All of these items I’m about to discuss are both luck and not luck.</p>
-<h2 id="The-courage"><a href="#The-courage" class="headerlink" title="The courage"></a>The courage</h2><p>One of the great characteristics of successful scientists is courage. Once you muster the courage to believe that you can solve major problems, then you can do it. If you don’t think you can do it, then you almost certainly can’t. They have courage. They move on in incredible situations; they think and keep thinking.</p>
-<h2 id="Working-conditions"><a href="#Working-conditions" class="headerlink" title="Working conditions"></a>Working conditions</h2><p>Great scientists make this mistake all the time. When you become famous, it’s hard to work on small problems. They don’t keep planting little acorns that can grow into big trees. They try to achieve big things immediately. People tend to be most productive when they are working under poor conditions. One of the best periods at the Cambridge Physics Laboratory was when they had almost nothing but shacks - and they made some of the best physics research ever. So ideal working conditions are very strange. What you want isn’t always what’s best for you.</p>
-<h2 id="Tremendous-drive"><a href="#Tremendous-drive" class="headerlink" title="Tremendous drive"></a>Tremendous drive</h2><p>Most great scientists have tremendous drive. Knowledge and productivity are like compound interest.” Assuming two people of similar ability, one working 10 per cent more than the other, the latter will be more than twice as productive as the former. The more you know, the more you learn; the more you learn, the more you can do; the more you can do, the more opportunities there are - much like compound interest. If you want to accomplish what you want to do, you have to ignore the fine print.</p>
-<h2 id="Ambiguity"><a href="#Ambiguity" class="headerlink" title="Ambiguity"></a>Ambiguity</h2><p>Most people like to believe that something is true or not true. Great scientists are very tolerant of ambiguity. If you believe too much, you’ll never notice the flaws; if you doubt too much, you’ll never get started. It requires a wonderful balance.</p>
-<h2 id="Keep-focused"><a href="#Keep-focused" class="headerlink" title="Keep focused"></a>Keep focused</h2><p>Thomas Edison said, “Genius is 99% perspiration and 1% inspiration.” Effort is not enough - it must be applied wisely. When you have a really important problem, don’t let anything else become the centre of your attention - you focus your thoughts on that problem. Keep your subconscious mind in a state of starvation so that it will work on solving your problem.</p>
-<h2 id="The-way-you-do"><a href="#The-way-you-do" class="headerlink" title="The way you do"></a>The way you do</h2><p>“It’s not what you do that matters, it’s the way you do it.” Isaac Newton said, “If I can see further than anyone else, it’s because I’m standing on the shoulders of giants.” The nature of science is cumulative. By changing a problem slightly, you can often do great work, not just good work. By changing the problem, by seeing things differently, you can have a big impact on ultimate productivity.</p>
-<h2 id="Sell-your-work"><a href="#Sell-your-work" class="headerlink" title="Sell your work"></a>Sell your work</h2><p>It’s not enough to do a job, you have to sell it. There are three things you must do when selling. You must learn to write clearly and well so that people will read it; you must learn to give fairly formal presentations; and you must learn to give informal presentations. Audiences want broad general speeches and want more research and background. As a result, many speeches are ineffective. The speaker presents a topic and then suddenly delves into details he has already addressed. Few in the audience can follow.</p>
-<h2 id="Work-with-the-system"><a href="#Work-with-the-system" class="headerlink" title="Work with the system"></a>Work with the system</h2><p>If you learn to work with the system, you can go farther than the system can support. Many scientists feel they have to defend their egos and do things their own way, and throughout their lives this can accumulate into a great deal of unnecessary trouble. Few people have the ability to both reform the system and become first-rate scientists. Anger is wrong. You should follow and co-operate instead of fighting the system all the time.</p>
-<h2 id="Self-deception"><a href="#Self-deception" class="headerlink" title="Self-deception"></a>Self-deception</h2><p>Human self-deception is very common. There are countless ways to change something, to deceive yourself, to make it look different. You need to know yourself, your weaknesses, strengths and flaws, like my ego. How do you turn weaknesses into strengths? You need to learn to use yourself. I think you need to know how to change a situation from one point of view to another, which will increase the chances of success.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/20/My-First-Post/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leo's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Leo's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/20/My-First-Post/" class="post-title-link" itemprop="url">Best Practices in Java</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2024-06-20 12:38:54 / Modified: 13:24:45" itemprop="dateCreated datePublished" datetime="2024-06-20T12:38:54+12:00">2024-06-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Best-Practices-in-Java"><a href="#Best-Practices-in-Java" class="headerlink" title="Best Practices in Java"></a>Best Practices in Java</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>As a developer,  aiming to provide insights gained from my learning journey. This article focuses on six key aspects of Java programming best practices in real-world project development: database audit fields, method-level data validation, return value constraints, facade pattern in business logic, business exception design, and enumeration state design. All code and ideas presented are based on my personal experience and insights, and I hope they prove helpful to readers.</p>
-<h2 id="Database-Audit-Fields"><a href="#Database-Audit-Fields" class="headerlink" title="Database Audit Fields"></a>Database Audit Fields</h2><p>When designing business system databases, it’s common to create audit fields such as <code>creator</code>, <code>creation time</code>, <code>last updater</code>, and <code>last update time</code>. Instead of repeatedly fetching and passing these values through layers, it’s better to automate this process. Here’s how to design a universal audit log insertion:</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><ul>
-<li>Framework: Spring Boot + MyBatis</li>
-<li>Database: MySQL</li>
-<li>Utility: Lombok</li>
-</ul>
-<h4 id="Define-Annotations"><a href="#Define-Annotations" class="headerlink" title="Define Annotations"></a>Define Annotations</h4><p>Create annotations that automatically assign values to annotated entity fields:</p>
-<pre><code class="java">@Retention(RetentionPolicy.RUNTIME)
-@Target(value = &#123;FIELD, METHOD, ANNOTATION_TYPE&#125;)
-public @interface CreateAt &#123;
-    // ...
-&#125;
-
-// Similar annotations for CreateBy, UpdateAt, and UpdateBy
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/20/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leo's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Leo's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/06/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2024-06-20 12:21:57" itemprop="dateCreated datePublished" datetime="2024-06-20T12:21:57+12:00">2024-06-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
 
 
 
